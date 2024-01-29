@@ -61,6 +61,13 @@ class Library {
         });
         return database;
     }
+    findOrCreateDatabase(id) {
+        let database = this.getDatabase(id);
+        if (!database) {
+            database = this.createDatabase(id);
+        }
+        return database;
+    }
     deleteDatabase(id) {
         let database = this.getDatabase(id);
         if (database) {
