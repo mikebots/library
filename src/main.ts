@@ -59,4 +59,5 @@ export {
     RulesType,
     
 }
+const xfactor = 1;
 //and extra
