@@ -2,23 +2,60 @@
 import Database from "./classes/Database";
 import Library from "./classes/Library";
 import Util from "./classes/Util";
+import Book from "./classes/Book";
+import Model from "./classes/Model";
+import Page from "./classes/Page";
+import Result from "./classes/Result";
+import Rules from "./classes/Rules";
 
-// const server = new ServerWrapper();
+import {
+  DatabaseInterface,
+  DatabasePathSettings,
+  DatabaseSettings,
+  DatabaseType,
+  defaultBookPathSettings,
+  ModelInterface,
+  ModelSettings,
+  Models,
+  BookInterface,
+  BookPathSettings,
+  BookSettings,
+  Books,
+  defaultDatabasePathSettings,
+  PageInterface,
+  PageSettings,
+  Pages,
+  ValidRuleType,
+  RulesType,
+} from "./types";
 
-// Util.request("http://localhost:3002/test", "POST", {testing: true}).then((res: any) => {
-//     console.log(res);
-// });
-
-const databases = {
-    "test_database": "1234567890" // database name: database id
+//NOW we export the classes
+export {
+    Database,
+    Library,
+    Util,
+    Book,
+    Model,
+    Page,
+    Result,
+    Rules,
+    DatabaseInterface,
+    DatabasePathSettings,
+    DatabaseSettings,
+    DatabaseType,
+    defaultBookPathSettings,
+    ModelInterface,
+    ModelSettings,
+    Models,
+    BookInterface,
+    BookPathSettings,
+    BookSettings,
+    Books,
+    defaultDatabasePathSettings,
+    PageInterface,
+    PageSettings,
+    Pages,
+    ValidRuleType,
+    RulesType,
+    
 }
-const d_id = databases["test_database"];
-const library = new Library("/Users/ali/local_library");
-const database = library.createDatabase(d_id);
-// // console.log(library.databases);
-
-
-// // database.save_data({test: true, id:12}, "testingdata")
-// // database.save_data({test: true, id:13}, "testingdata")
-// console.log("books",  database._books)
-// console.log("hello this", database.search({id: 12}))
