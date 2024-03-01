@@ -1,20 +1,9 @@
 import fs from "fs";
 import path from "path";
 import readline from "readline";
-import { exec, execSync } from "child_process";
+import { exec } from "child_process";
 
-import {
-  PageInterface,
-  PageSettings,
-  Pages,
-  BookInterface,
-  Books,
-  ValidRuleType,
-  RulesType,
-  ModelInterface,
-  defaultBookPathSettings,
-  defaultDatabasePathSettings,
-} from "../types";
+import { defaultBookPathSettings, defaultDatabasePathSettings } from "../types";
 import Page from "./Page";
 import Model from "./Model";
 import Book from "./Book";
@@ -212,26 +201,21 @@ export default class Util {
       id: database._id,
     };
   }
-  static async request(url: string, method: string, data?: any) 
-  {
-
-      const options: any = {
-        url,
-        method,
-        json: true,
-      };
-      if (data) {
-        options["body"] = data;
-      }
-      //use axios to make the request
-      const request = await axios({
-        url,
-        method,
-        data
-
-      })
-      return request.data;
-
-      
+  static async request(url: string, method: string, data?: any) {
+    const options: any = {
+      url,
+      method,
+      json: true,
+    };
+    if (data) {
+      options["body"] = data;
+    }
+    //use axios to make the request
+    const request = await axios({
+      url,
+      method,
+      data,
+    });
+    return request.data;
   }
 }

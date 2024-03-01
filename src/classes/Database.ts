@@ -1,21 +1,14 @@
 import Util from "./Util";
-import Page from "./Page";
-import Rules from "./Rules";
+
 import Book from "./Book";
-import Model from "./Model";
 import {
-  BookInterface,
   BookSettings,
-  Pages,
   DatabaseInterface,
-  DatabaseType,
   Books,
   DatabaseSettings,
   DatabasePathSettings,
-  BookPathSettings,
 } from "../types";
 import path from "path";
-import fs from "fs";
 
 export default class Database implements DatabaseInterface {
   _id: string;
@@ -99,7 +92,8 @@ export default class Database implements DatabaseInterface {
     return this._books.map((book) => book._id);
   }
   createBook(model_name: string) {
-    if(this.hasModel(model_name)) throw new Error(`Book with model name '${model_name}' already exists`)
+    if (this.hasModel(model_name))
+      throw new Error(`Book with model name '${model_name}' already exists`);
     let id = Util.generateId(this.bookIds, new Date(Date.now()));
     let book = new Book({
       id,

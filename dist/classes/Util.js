@@ -209,7 +209,7 @@ class Util {
             const request = yield (0, axios_1.default)({
                 url,
                 method,
-                data
+                data,
             });
             return request.data;
         });
