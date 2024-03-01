@@ -22,7 +22,7 @@ export default class Model implements ModelInterface {
   save(data: any, overwrite: boolean = false) {
     for (const key of Object.keys(data)) {
       if (["_id", "_doc", "_lm", "_s", "_pid", "_n", "_rpage_id", "_rbook_id"].includes(key)) {
-        if(!overwrite) throw new Error("Cannot save a reserved key");
+        if(!overwrite) continue;
         
       }
       this[key] = data[key];
