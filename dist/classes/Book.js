@@ -183,20 +183,6 @@ class Book {
         this.updatePageInSettings(page._id);
         return page;
     }
-    update_data(id, data, page_id) {
-        var _a;
-        let model = page_id ? (_a = this.getPage(page_id)) === null || _a === void 0 ? void 0 : _a.getModel(id) : this.getModel(id);
-        if (model) {
-            this.checkIfFull(data, model._pid);
-            let validation = this.rules.validate(data, true);
-            if (!validation.success)
-                throw new Error(validation.message);
-            model.save(data);
-            this.updatePageInSettings(model._pid);
-            return true;
-        }
-        return false;
-    }
     getModelIDS() {
         let pages = this._pages;
         let ids = [];
@@ -247,21 +233,38 @@ class Book {
         }
         return false;
     }
-    updateModel(id, data) {
+    updateModel(id, data, page_id) {
         let pages = this._pages;
-        for (const page of pages) {
-            let found = page.getModel(id);
-            if (found) {
-                data = Object.assign(Object.assign({}, found), data);
-                let validation = this.rules.validate(data, true);
-                if (!validation.success)
-                    throw new Error(validation.message);
-                found.save(data);
-                page.update([...page._models.filter((m) => m._id != id), found]);
-                this.updatePageInSettings(page._id);
-                return true;
+        if (page_id) {
+            let page = this.getPage(page_id);
+            if (page) {
+                let found = page.getModel(id);
+                if (found) {
+                    data = Object.assign(Object.assign({}, found), data);
+                    let validation = this.rules.validate(data, true);
+                    if (!validation.success)
+                        throw new Error(validation.message);
+                    found.save(data);
+                    page.update([...page._models.filter((m) => m._id != id), found]);
+                    this.updatePageInSettings(page._id);
+                    return true;
+                }
             }
         }
+        else
+            for (const page of pages) {
+                let found = page.getModel(id);
+                if (found) {
+                    data = Object.assign(Object.assign({}, found), data);
+                    let validation = this.rules.validate(data, true);
+                    if (!validation.success)
+                        throw new Error(validation.message);
+                    found.save(data);
+                    page.update([...page._models.filter((m) => m._id != id), found]);
+                    this.updatePageInSettings(page._id);
+                    return true;
+                }
+            }
     }
     setRules(rules) {
         this.updateSettings({ rules });

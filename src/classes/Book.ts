@@ -205,18 +205,7 @@ export default class Book implements BookInterface {
     this.updatePageInSettings(page._id);
     return page;
   }
-  update_data(id: string, data: any, page_id?: string) {
-    let model = page_id? this.getPage(page_id)?.getModel(id) : this.getModel(id);
-    if (model) {
-      this.checkIfFull(data, model._pid);
-      let validation = this.rules.validate(data, true);
-      if (!validation.success) throw new Error(validation.message);
-      model.save(data);
-      this.updatePageInSettings(model._pid);
-      return true;
-    }
-    return false;
-  }
+  
   getModelIDS() {
     let pages = this._pages;
     let ids: string[] = [];
@@ -265,21 +254,36 @@ export default class Book implements BookInterface {
     }
     return false;
   }
-  updateModel(id: string, data: any) {
+  updateModel(id: string, data: any, page_id?: string) {
     let pages = this._pages;
-    for (const page of pages) {
-      let found = page.getModel(id);
-      if (found) {
-        data = { ...found, ...data };
-
-        let validation = this.rules.validate(data, true);
-        if (!validation.success) throw new Error(validation.message);
-        found.save(data);
-        page.update([...page._models.filter((m) => m._id != id), found]);
-        this.updatePageInSettings(page._id);
-        return true;
+    if (page_id) {
+      let page = this.getPage(page_id);
+      if (page) {
+        let found = page.getModel(id);
+        if (found) {
+          data = { ...found, ...data };
+          let validation = this.rules.validate(data, true);
+          if (!validation.success) throw new Error(validation.message);
+          found.save(data);
+          page.update([...page._models.filter((m) => m._id != id), found]);
+          this.updatePageInSettings(page._id);
+          return true;
+        }
       }
-    }
+    } else
+      for (const page of pages) {
+        let found = page.getModel(id);
+        if (found) {
+          data = { ...found, ...data };
+
+          let validation = this.rules.validate(data, true);
+          if (!validation.success) throw new Error(validation.message);
+          found.save(data);
+          page.update([...page._models.filter((m) => m._id != id), found]);
+          this.updatePageInSettings(page._id);
+          return true;
+        }
+      }
   }
   setRules(rules: RulesType) {
     this.updateSettings({ rules });
@@ -477,7 +481,7 @@ export default class Book implements BookInterface {
         );
       if (page._maxSize != pageSetting.maxSize) {
         // we will fix this ourselves
-        console.log("doing 2 something")
+        console.log("doing 2 something");
         this.setPageMaxSize(page._id, page._maxSize);
       }
       if (page._path != pageSetting.path)
