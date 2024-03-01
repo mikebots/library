@@ -191,7 +191,7 @@ export default class Database implements DatabaseInterface {
         "Database settings file does not exist. Please fix this manually."
       );
     let settings = this._settings;
-    console.log("SETTINGS: ", settings);
+
     // ["path", "doc", "lm", "maxSize", "type", "id"]
     //step 3
     let requiredFields = ["path", "doc", "lm", "maxSize", "type", "id"];

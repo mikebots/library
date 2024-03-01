@@ -12,11 +12,11 @@ export default class Library {
   }
   setPath(path: string) {
     this.path = path;
-    console.log("PATH1", this.path)
+
     this.init();
   }
   init() {
-    console.log("PATH2", this.path)
+
     if (!Util.exists(this.path)) {
       Util.mkdir(this.path);
     }
@@ -35,7 +35,7 @@ export default class Library {
     return s;
   }
   get databases() {
-    console.log("PATH", this.path)
+
     //loop through each folder in our path, then create database object for each database inside
     let databases: Database[] = [];
     let folders = Util.listFolders(this.path);
