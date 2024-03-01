@@ -76,6 +76,13 @@ export default class Page implements PageInterface {
   getModel(id: string) {
     return Util.searchModel(this, id);
   }
+  updateModel(id: string, data: any) {
+    const model = Util.searchModel(this, id);
+    if (!model) return false;
+    model.save(data);
+    this.update(this._models);
+    return true;
+  }
   getModels(data: any) {
     return Util.searchModels(this, data);
   }

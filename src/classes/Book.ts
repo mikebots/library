@@ -205,6 +205,18 @@ export default class Book implements BookInterface {
     this.updatePageInSettings(page._id);
     return page;
   }
+  update_data(id: string, data: any, page_id?: string) {
+    let model = page_id? this.getPage(page_id)?.getModel(id) : this.getModel(id);
+    if (model) {
+      this.checkIfFull(data, model._pid);
+      let validation = this.rules.validate(data, true);
+      if (!validation.success) throw new Error(validation.message);
+      model.save(data);
+      this.updatePageInSettings(model._pid);
+      return true;
+    }
+    return false;
+  }
   getModelIDS() {
     let pages = this._pages;
     let ids: string[] = [];

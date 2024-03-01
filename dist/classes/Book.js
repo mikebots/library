@@ -183,6 +183,20 @@ class Book {
         this.updatePageInSettings(page._id);
         return page;
     }
+    update_data(id, data, page_id) {
+        var _a;
+        let model = page_id ? (_a = this.getPage(page_id)) === null || _a === void 0 ? void 0 : _a.getModel(id) : this.getModel(id);
+        if (model) {
+            this.checkIfFull(data, model._pid);
+            let validation = this.rules.validate(data, true);
+            if (!validation.success)
+                throw new Error(validation.message);
+            model.save(data);
+            this.updatePageInSettings(model._pid);
+            return true;
+        }
+        return false;
+    }
     getModelIDS() {
         let pages = this._pages;
         let ids = [];

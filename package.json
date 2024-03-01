@@ -1,6 +1,6 @@
 {
   "name": "mikes-library",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Database system in the form of a library.",
   "main": "dist/main",
   "types": "dist/main.d.ts",

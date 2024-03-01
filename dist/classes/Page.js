@@ -69,6 +69,14 @@ class Page {
     getModel(id) {
         return Util_1.default.searchModel(this, id);
     }
+    updateModel(id, data) {
+        const model = Util_1.default.searchModel(this, id);
+        if (!model)
+            return false;
+        model.save(data);
+        this.update(this._models);
+        return true;
+    }
     getModels(data) {
         return Util_1.default.searchModels(this, data);
     }
