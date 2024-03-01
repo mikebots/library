@@ -181,7 +181,6 @@ class Database {
         if (!Util_1.default.exists(this.settings_path))
             throw new Error("Database settings file does not exist. Please fix this manually.");
         let settings = this._settings;
-        console.log("SETTINGS: ", settings);
         // ["path", "doc", "lm", "maxSize", "type", "id"]
         //step 3
         let requiredFields = ["path", "doc", "lm", "maxSize", "type", "id"];

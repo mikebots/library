@@ -14,11 +14,9 @@ class Library {
     }
     setPath(path) {
         this.path = path;
-        console.log("PATH1", this.path);
         this.init();
     }
     init() {
-        console.log("PATH2", this.path);
         if (!Util_1.default.exists(this.path)) {
             Util_1.default.mkdir(this.path);
         }
@@ -38,7 +36,6 @@ class Library {
         return s;
     }
     get databases() {
-        console.log("PATH", this.path);
         //loop through each folder in our path, then create database object for each database inside
         let databases = [];
         let folders = Util_1.default.listFolders(this.path);
@@ -108,6 +105,9 @@ class Library {
         return this.databases.filter((database) => {
             return database.hasModel(model_name);
         });
+    }
+    hasDatabase(id) {
+        return this.databases.some((database) => database._id === id);
     }
 }
 exports.default = Library;

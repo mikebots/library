@@ -111,4 +111,7 @@ export default class Library {
       return database.hasModel(model_name);
     });
   }
+  hasDatabase(id: string) {
+    return this.databases.some((database) => database._id === id);
+  }
 }
