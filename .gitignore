@@ -8,3 +8,4 @@ test.json
 x.json
 build.py
 dist
+.DS_Store

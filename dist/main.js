@@ -24,9 +24,3 @@ exports.Rules = Rules_1.default;
 const types_1 = require("./types");
 Object.defineProperty(exports, "defaultBookPathSettings", { enumerable: true, get: function () { return types_1.defaultBookPathSettings; } });
 Object.defineProperty(exports, "defaultDatabasePathSettings", { enumerable: true, get: function () { return types_1.defaultDatabasePathSettings; } });
-const testlib = new Library_1.default("testlib");
-const database = testlib.createDatabase("testdb");
-const data = {
-    name: "testbook",
-};
-database.save_data(data, "testbook");
